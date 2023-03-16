@@ -1,0 +1,17 @@
+{
+    "qc-(H^`fM~Ci?vF36:lN": {
+        "data": "hwQQABAAAAAAAABkZgAAAACgqtrdvYioAKqi2qu9AKAAqqp6u7cAAACgotvbvYioAAAAC6sAAKAAAAAACwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Player"
+    },
+    "image1": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAACQAAAAAAIiACACAgACIJwMy8kgIA8iJSVSUAAAApIsnCsgCgACApwsK5iKgAAAAAIAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "myImage"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}
