@@ -189,21 +189,85 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     MainCharacter.vy = -100
     pause(1000)
 })
-controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    MainCharacter.vx = -100
-})
-controller.right.onEvent(ControllerButtonEvent.Released, function () {
-    MainCharacter.vx = 0
-})
-controller.left.onEvent(ControllerButtonEvent.Released, function () {
-    MainCharacter.vx = 0
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Ammo, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     sprites.destroy(Ammo)
 })
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    MainCharacter.vx = 100
+info.onLifeZero(function () {
+    animation.runImageAnimation(
+    MainCharacter,
+    [img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . a a . . . . . . . . 
+        . . . . . a a a a . . . . . . . 
+        . . . . . a 2 a 2 . . . . . . . 
+        . . . . . a a a a . . . . . . . 
+        . . . . 4 a a a b b . . . . . . 
+        . . . . 6 d d 7 d . . . . . . . 
+        . . . . 6 d b b b b b . . . . . 
+        . . . . 6 d a b d a . . . . . . 
+        . . . . . d d 7 d . . . . . . . 
+        . . . . . b b b b . . . . . . . 
+        . . . . . 8 . . 8 . . . . . . . 
+        . . . . . 8 . . 8 . . . . . . . 
+        . . . . . 8 . . 8 . . . . . . . 
+        . . . . . a a . a a . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . a a . . . . . . . 
+        . . . . . . a a a a . . . . . . 
+        . . . . . . a 2 a 2 . . . . . . 
+        . . . . . . a a a a . . . . . . 
+        . . . . . 4 a a a b b . . . . . 
+        . . . . . 6 d d 7 d . b . . . . 
+        . . . . . 6 d d 7 d . . b . . . 
+        . . . . . 6 d a 7 d a b . b . . 
+        . . . . . . d d 7 d . . . . b . 
+        . . . . . . b b b b . . . . . b 
+        . . . . . . 8 . . 8 . . . . . . 
+        . . . . . . 8 . . 8 . . . . . . 
+        . . . . a 8 8 a 8 8 . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . a . . . . . . . . . . . 
+        . . a a 2 . b . . . . . . . . . 
+        . a 2 a a b . . . . . . . . . . 
+        . a a a a a . . . . . . . . . . 
+        . . a a a 7 d d d . . . . . . . 
+        . . . a . d 7 d d . . . . . b . 
+        . . . . . d d 7 d d . . . b b . 
+        . . . . . d d d 7 d . . . . b . 
+        . . . . . . b b b b . . . . b . 
+        . . . . . . 8 . . 8 . . . . b . 
+        . . . . . . 8 . . 8 . . . . . . 
+        . . . . a 8 8 a 8 8 . . . . . . 
+        `,img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . b . . a . . . . . . . . 
+        . a 2 a b d d d d b 8 b b b b b 
+        a a a a a 7 7 7 7 b . 8 b . . . 
+        a a 2 a a d d a d b . . 8 . a . 
+        . a a a a d d d d b 8 8 8 8 a . 
+        `],
+    500,
+    false
+    )
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(Zed, effects.ashes, 500)
@@ -221,6 +285,7 @@ MainCharacter = sprites.create(assets.image`Player`, SpriteKind.Player)
 MainCharacter.ay = 200
 scene.cameraFollowSprite(MainCharacter)
 info.setScore(3)
+controller.moveSprite(MainCharacter, 100, 0)
 Ammo = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -244,4 +309,4 @@ Ammo.setVelocity(0, 1000)
 Zed = sprites.create(assets.image`myImage`, SpriteKind.Enemy)
 Zed.setVelocity(0, 100)
 Zed.setPosition(100, 65)
-info.setLife(3)
+info.setLife(1)
