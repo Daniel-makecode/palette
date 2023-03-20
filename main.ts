@@ -185,9 +185,17 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     	
     }
 })
+controller.up.onEvent(ControllerButtonEvent.Repeated, function () {
+    if (MainCharacter.tileKindAt(TileDirection.Center, assets.tile`myTile39`)) {
+        MainCharacter.vy = -100
+    } else {
+    	
+    }
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    MainCharacter.vy = -100
-    pause(1000)
+    if (MainCharacter.isHittingTile(CollisionDirection.Bottom)) {
+        MainCharacter.vy = -100
+    }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Ammo, function (sprite, otherSprite) {
     info.changeScoreBy(1)
@@ -269,6 +277,9 @@ info.onLifeZero(function () {
     false
     )
 })
+scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile35`, function (sprite, location) {
+    tiles.setTileAt(location, assets.tile`transparency16`)
+})
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(Zed, effects.ashes, 500)
 })
@@ -280,8 +291,9 @@ let PlayerBullet: Sprite = null
 let Zed: Sprite = null
 let Ammo: Sprite = null
 let MainCharacter: Sprite = null
-tiles.setCurrentTilemap(tilemap`level1`)
+tiles.setCurrentTilemap(tilemap`level2`)
 MainCharacter = sprites.create(assets.image`Player`, SpriteKind.Player)
+tiles.placeOnRandomTile(MainCharacter, assets.tile`myTile48`)
 MainCharacter.ay = 200
 scene.cameraFollowSprite(MainCharacter)
 info.setScore(3)
