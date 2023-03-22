@@ -3,25 +3,6 @@ namespace myImages {
 
     helpers._registerFactory("image", function(name: string) {
         switch(helpers.stringTrim(name)) {
-            case "qc-(H^`fM~Ci?vF36:lN":
-            case "Player":return img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . a a . . . . . . . . 
-. . . . . a a a a . . . . . . . 
-. . . . . a 2 a 2 . . . . . . . 
-. . . . . a a a a . . . . . . . 
-. . . . 4 a a a b b . . . . . . 
-. . . . 6 d d 7 d . . . . . . . 
-. . . . 6 d b b b b b . . . . . 
-. . . . 6 d a b d a . . . . . . 
-. . . . . d d 7 d . . . . . . . 
-. . . . . b b b b . . . . . . . 
-. . . . . 8 . . 8 . . . . . . . 
-. . . . . 8 . . 8 . . . . . . . 
-. . . . . 8 . . 8 . . . . . . . 
-. . . . . a a . a a . . . . . . 
-`;
             case "image2":
             case "myImage0":return img`
 . . . . . . . . . . . . . . . . 
@@ -97,6 +78,25 @@ namespace myImages {
 . . . . . . . . . . 2 9 . . 8 . 
 . . . . . . . . . . . 2 . . 8 . 
 . . . . . . . . . . 2 . . a a . 
+`;
+            case "qc-(H^`fM~Ci?vF36:lN":
+            case "Player":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . a a . . . . . . 
+. . . . . . . a a a a . . . . . 
+. . . . . . . 2 a 2 a . . . . . 
+. . . . . . . a a a a . . . . . 
+. . . . . . b b a a a 4 . . . . 
+. . . . . . . d 7 d d 6 . . . . 
+. . . . . b b b b b d 6 . . . . 
+. . . . . . a d b a d 6 . . . . 
+. . . . . . . d 7 d d . . . . . 
+. . . . . . . b b b b . . . . . 
+. . . . . . . 8 . . 8 . . . . . 
+. . . . . . . 8 . . 8 . . . . . 
+. . . . . . . 8 . . 8 . . . . . 
+. . . . . . a a . a a . . . . . 
 `;
         }
         return null;
