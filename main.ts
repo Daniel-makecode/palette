@@ -1,6 +1,14 @@
 namespace SpriteKind {
     export const Ammo = SpriteKind.create()
+    export const NPC = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.NPC, function (sprite, otherSprite) {
+    Hiding_hazmat.sayText("This is my hiding spot, and I'm not moving until the situation has drastically improved! Now go away! And don't tell me anyone I'm here!", 5000, true)
+    pause(5000)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile58`, function (sprite, location) {
+    game.gameOver(false)
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Is_right == 1) {
         if (info.score() > 0) {
@@ -371,6 +379,9 @@ controller.up.onEvent(ControllerButtonEvent.Repeated, function () {
         MainCharacter.vy = -100
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile67`, function (sprite, location) {
+    game.gameOver(true)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (MainCharacter.isHittingTile(CollisionDirection.Bottom)) {
         if (Is_right == 1) {
@@ -461,10 +472,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 function Spawn_Enemies () {
     for (let value of tiles.getTilesByType(assets.tile`myTile52`)) {
-        Zed = sprites.create(assets.image`myImage`, SpriteKind.Enemy)
+        Zed = sprites.create(assets.image`Hazard suit Infected`, SpriteKind.Enemy)
         tiles.placeOnTile(Zed, value)
         tiles.setTileAt(value, assets.tile`myTile25`)
-        Zed.setVelocity(-50, 0)
+        Zed.setVelocity(50, 0)
         Zed.setBounceOnWall(true)
     }
 }
@@ -610,6 +621,9 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile36`, function (sprite, location) {
+    game.gameOver(false)
+})
 info.onLifeZero(function () {
     animation.runImageAnimation(
     MainCharacter,
@@ -685,18 +699,39 @@ info.onLifeZero(function () {
     500,
     false
     )
+    game.gameOver(false)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile62`, function (sprite, location) {
+    tiles.setTileAt(location, assets.tile`myTile63`)
+    tiles.setWallAt(tiles.getTileLocation(94, 38), false)
+    tiles.setTileAt(tiles.getTileLocation(94, 38), assets.tile`myTile25`)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile56`, function (sprite, location) {
+    tiles.setTileAt(location, assets.tile`myTile60`)
+    tiles.setWallAt(tiles.getTileLocation(59, 28), false)
+    tiles.setTileAt(tiles.getTileLocation(59, 28), assets.tile`myTile25`)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile55`, function (sprite, location) {
+    if (info.life() < 3) {
+        tiles.setTileAt(location, assets.tile`myTile25`)
+        info.changeLifeBy(1)
+    } else {
+        MainCharacter.sayText("Health full", 500, false)
+    }
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.ashes, 500)
     sprites.destroy(PlayerBullet)
+    otherSprite.setVelocity(0, 0)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
-    sprites.destroy(otherSprite)
+    pause(1000)
 })
 let Zed: Sprite = null
 let PlayerBullet: Sprite = null
 let Is_right = 0
+let Hiding_hazmat: Sprite = null
 let MainCharacter: Sprite = null
 tiles.setCurrentTilemap(tilemap`level2`)
 MainCharacter = sprites.create(assets.image`Player`, SpriteKind.Player)
@@ -706,4 +741,7 @@ scene.cameraFollowSprite(MainCharacter)
 info.setScore(3)
 controller.moveSprite(MainCharacter, 100, 0)
 info.setLife(3)
+Hiding_hazmat = sprites.create(assets.image`Hazard suit kneeling`, SpriteKind.NPC)
+tiles.placeOnRandomTile(Hiding_hazmat, assets.tile`myTile23`)
 Spawn_Enemies()
+game.showLongText("Use the A button to jump and use the B button to shoot. Hold up to use ladders.", DialogLayout.Center)
